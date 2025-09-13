@@ -6,6 +6,33 @@ Hands-on networking projects demonstrating VLAN setup and Inter-VLAN routing.
 
 ## Week 1 – VLAN & Inter-VLAN Routing
 
+
+## Table of Contents
+
+1. [Lab Objective](#lab-objective)
+2. [Lab Topology](#lab-topology)
+3. [IP Addressing Table](#ip-addressing-table)
+4. [Device Configuration Overview](#device-configuration-overview)
+5. [Verification Steps](#verification-steps)
+6. [Folder Structure](#folder-structure)
+7. [Notes](#notes)
+
+---
+
+### Lab Objective
+- Configure VLANs on multiple switches.
+- Set up trunk links between switches and router.
+- Configure Router-on-a-Stick for inter-VLAN routing.
+- Verify connectivity between devices in different VLANs.
+- Document all configurations and verification outputs.
+
+---
+
+### Lab Topology
+
+
+
+
 ### 1. Lab Objective
 - Configure **VLANs** on multiple switches.
 - Set up **trunk links** between switches and router.
@@ -83,7 +110,7 @@ ping <other VLAN PC IP>
 ping <gateway>
 
 
-### 6. Folder Structure for GitHub Repo
+### 6. Folder Structure
 
 networking-vlan-intervlan/
 ├─ README.md
