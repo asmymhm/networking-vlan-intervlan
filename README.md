@@ -2,16 +2,19 @@
 
 ## Week 1 – VLAN & Inter-VLAN Routing
 
+<img src ="screenshots/topology.png" alt="INTER VLAN TOPOLOGY" width="600" />
+
 
 ## Table of Contents
 
 1. [Lab Objective](#lab-objective)
 2. [Lab Topology](#lab-topology)
 3. [IP Addressing Table](#ip-addressing-table)
-4. [Device Configuration Overview](#device-configuration-overview)
+4. [Device Configuraion Overview](#device-configuration-overview)
 5. [Verification Steps](#verification-steps)
 6. [Folder Structure](#folder-structure)
 7. [Notes](#notes)
+8. [License](#license)
 
 ---
 
@@ -49,7 +52,7 @@ PC4-PC6 --- SW2 ---+
 ---
 
 
-| Device | Interface | IP Address      | Subnet Mask    | Default Gateway |
+| Device | Interface | IP Address     | Subnet Mask    | Default Gateway|
 |--------|-----------|----------------|----------------|----------------|
 | PC1    | Fa0       | 192.168.10.10  | 255.255.255.0  | 192.168.10.1   |
 | PC2    | Fa0       | 192.168.10.11  | 255.255.255.0  | 192.168.10.1   |
@@ -101,8 +104,20 @@ show ip arp
 
 On PCs
 
-ping <other VLAN PC IP>
-ping <gateway>
+Ping From PC1 to PC5
+
+<img src ="screenshots/ping pc1 to pc5.png" alt="Ping From PC1 to PC5" width="600" />
+
+Ping From PC6 to PC3
+
+<img src ="screenshots/ping pc6 to pc3.png" alt="Ping From PC6 to PC3" width="600" />
+
+
+
+ping Both Gateway
+
+<img src ="screenshots/gateway ping.png" alt="Ping Both Gateways" width="600" />
+
 
 ---
 
@@ -121,9 +136,14 @@ networking-vlan-intervlan/
 │  ├─ sw2.cfg
 │  └─ r1.cfg
 └─ screenshots/
-   ├─ show-vlan-brief.png
-   ├─ show-interfaces-trunk.png
-   └─ ping-intervlan.png
+   ├─ ping pc1 to pc5.png
+   ├─ ping pc6 to pc3.png
+   ├─ show-vlan-brief SW1.png
+   ├─ show-vlan-brief SW2.png
+   ├─ show-interfaces-trunk SW1.png
+   ├─ show-interfaces-trunk SW2.png
+   └─ topology.png
+   └─ gateway ping.png
 
 
 configs/ → Configuration files for SW1, SW2, R1.
@@ -144,5 +164,16 @@ This lab demonstrates VLAN creation, trunking, and inter-VLAN routing.
 All devices are configured to avoid native VLAN mismatch, unused VLANs, or trunk negotiation issues.
 
 Inter-VLAN connectivity verified; all ping tests successful.
+
+---
+
+### 8. License
+
+---
+<a href="LICENSE">
+  <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="MIT License" />
+</a>
+
+This project is licensed under the [MIT License](LICENSE).
 
 ---
