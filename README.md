@@ -1,175 +1,163 @@
 ﻿# Networking VLAN & Inter-VLAN Routing Lab
 
-## Week 1 – VLAN & Inter-VLAN Routing
+<img src="screenshots/topology.png" alt="INTER VLAN TOPOLOGY" width="600"/>
 
-<img src ="screenshots/topology.png" alt="INTER VLAN TOPOLOGY" width="600" />
 
+
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
+---
 
 ## Table of Contents
 
-1. [Lab Objective](#lab-objective)
-2. [Lab Topology](#lab-topology)
-3. [IP Addressing Table](#ip-addressing-table)
-4. [Device Configuraion Overview](#device-configuration-overview)
-5. [Verification Steps](#verification-steps)
-6. [Folder Structure](#folder-structure)
-7. [Notes](#notes)
-8. [License](#license)
+1. [Lab Objective](#lab-objective)  
+2. [Topology Overview](#topology-overview)  
+3. [Devices Used](#devices-used)  
+4. [Device Configuration Overview](#device-configuration-overview)  
+5. [Configuration Files](#configuration-files)  
+6. [Verification Steps](#verification-steps)  
+7. [Folder Structure](#folder-structure)  
+8. [Screenshots](#screenshots)  
+9. [License](#license)
 
 ---
 
+## Lab Objective
 
-### 1. Lab Objective
+The goal of this lab is to:
 
----
-
-- Configure **VLANs** on multiple switches.
-- Set up **trunk links** between switches and router.
-- Configure **Router-on-a-Stick** for inter-VLAN routing.
-- Verify connectivity between devices in different VLANs.
-- Document all configurations and verification outputs.
+- Configure VLANs on multiple Cisco switches.  
+- Set up trunk links between switches and a router.  
+- Implement inter-VLAN routing to enable communication between different VLANs.  
+- Verify the configuration through ping tests and interface status checks.  
 
 ---
 
-### 2. Lab Topology
+## Topology Overview
+
+The network topology consists of:
+
+- **2 Cisco Switches (SW1 & SW2)**
+- **1 Router (R1)**
+- **6 PCs** connected across VLANs 10, 20, and 30.  
+- Trunk links between switches and router subinterfaces for inter-VLAN routing.
+
+**VLAN Assignments:**
+
+| VLAN | PCs         | Gateway        |
+|------|-------------|----------------|
+| 10   | PC1, PC2    | 192.168.10.1   |
+| 20   | PC3, PC4    | 192.168.20.1   |
+| 30   | PC5, PC6    | 192.168.30.1   |
 
 ---
 
-PC1-PC3 --- SW1 ---+--- R1 (G0/0)
-|
-PC4-PC6 --- SW2 ---+
+## Devices Used
 
-
-- **VLAN 10** → PC1, PC2, PC3  
-- **VLAN 20** → PC4, PC5, PC6  
-- **SW1 ↔ SW2 trunk** → allows VLANs 10 & 20  
-- **Router-on-a-stick** → R1 subinterfaces for VLAN 10 & VLAN 20  
+- **SW1**: Core Switch  
+- **SW2**: Access Switch  
+- **R1**: Router (providing inter-VLAN routing)  
+- **PC1-PC6**: End devices for testing VLAN connectivity  
 
 ---
 
-### 3. IP Addressing Table
+## Device Configuration Overview
+
+### SW1 (Core Switch)
+- VLANs 10, 20, 30 configured  
+- Trunk ports on Fa0/23 and Fa0/24  
+- Access ports assigned to respective VLANs  
+
+### SW2 (Access Switch)
+- VLANs 10, 20, 30 configured  
+- Access ports assigned to PCs  
+- Trunk port connected to SW1  
+
+### R1 (Router)
+- Subinterfaces configured for each VLAN:
+  - Gi0/0.10 → VLAN 10, IP 192.168.10.1  
+  - Gi0/0.20 → VLAN 20, IP 192.168.20.1  
+  - Gi0/0.30 → VLAN 30, IP 192.168.30.1  
+- Routing enabled for inter-VLAN communication  
 
 ---
 
+## Configuration Files
 
-| Device | Interface | IP Address     | Subnet Mask    | Default Gateway|
-|--------|-----------|----------------|----------------|----------------|
-| PC1    | Fa0       | 192.168.10.10  | 255.255.255.0  | 192.168.10.1   |
-| PC2    | Fa0       | 192.168.10.11  | 255.255.255.0  | 192.168.10.1   |
-| PC3    | Fa0       | 192.168.10.12  | 255.255.255.0  | 192.168.10.1   |
-| PC4    | Fa0       | 192.168.20.10  | 255.255.255.0  | 192.168.20.1   |
-| PC5    | Fa0       | 192.168.20.11  | 255.255.255.0  | 192.168.20.1   |
-| PC6    | Fa0       | 192.168.20.12  | 255.255.255.0  | 192.168.20.1   |
-| R1     | G0/0.10   | 192.168.10.1   | 255.255.255.0  | N/A            |
-| R1     | G0/0.20   | 192.168.20.1   | 255.255.255.0  | N/A            |
+All device configurations are saved in the `configs/` folder:
+
+- `SW1.cfg` → Switch 1 configuration  
+- `SW2.cfg` → Switch 2 configuration  
+- `R1.cfg`  → Router configuration  
 
 ---
 
-### 4. Device Configuration Overview
+## Verification Steps
+
+1. **Ping Tests**  
+   - Test connectivity between PCs in the same VLAN and across VLANs.  
+   - Example: `PC2 → PC5` (different VLANs).  
+
+2. **Interface Status**  
+   - Verify trunk links and VLAN interfaces are up using:  
+     ```
+     show interfaces trunk
+     show vlan brief
+     ```
+
+3. **MAC Address Table**  
+   - Confirm devices are learned in the correct VLAN using:  
+     ```bash
+     show mac address-table
+     ```
+
+4. **Traceroute**  
+   - Optionally, perform `traceroute` to confirm routing between VLANs.  
 
 ---
 
-**SW1 – Distribution Switch**
-- VLANs 10 & 20 created.
-- Access ports: PC1–PC3 in VLAN 10.
-- Trunk ports: Fa0/23 to router, Fa0/24 to SW2.
-
-**SW2 – Access Switch**
-- VLANs 10 & 20 created.
-- Access ports: PC4–PC6 in VLAN 20.
-- Trunk port: Fa0/24 to SW1.
-
-**R1 – Router-on-a-Stick**
-- G0/0 physical interface connected to SW1 trunk.
-- Subinterfaces: G0/0.10 for VLAN 10, G0/0.20 for VLAN 20.
-
----
-
-### 5. Verification Steps
-
----
-
-On Switches
-
-show vlan brief
-
-show interfaces trunk
-show mac address-table
-
-On Router
-
-show ip interface brief
-show ip route
-show ip arp
-
-On PCs
-
-Ping From PC1 to PC5
-
-<img src ="screenshots/ping pc1 to pc5.png" alt="Ping From PC1 to PC5" width="600" />
-
-Ping From PC6 to PC3
-
-<img src ="screenshots/ping pc6 to pc3.png" alt="Ping From PC6 to PC3" width="600" />
-
-
-
-ping Both Gateway
-
-<img src ="screenshots/gateway ping.png" alt="Ping Both Gateways" width="600" />
-
-
----
-
-### 6. Folder Structure
-
----
+## Folder Structure
 
 networking-vlan-intervlan/
-├─ README.md
-├─ verification.md
-├─ labs/
-│  └─ week1-vlan/
-│      └─ topology.pkt
-├─ configs/
-│  ├─ sw1.cfg
-│  ├─ sw2.cfg
-│  └─ r1.cfg
-└─ screenshots/
-   ├─ ping pc1 to pc5.png
-   ├─ ping pc6 to pc3.png
-   ├─ show-vlan-brief SW1.png
-   ├─ show-vlan-brief SW2.png
-   ├─ show-interfaces-trunk SW1.png
-   ├─ show-interfaces-trunk SW2.png
-   └─ topology.png
-   └─ gateway ping.png
+│
+├─ configs/ # Device configuration files
+├─ screenshots/ # Ping tests, VLAN verification images
+├─ docs/ # Documentation (optional)
+├─ demo/ # Lab demonstration files (Packet Tracer .pkt)
+├─ scripts/ # Automation or helper scripts (if any)
+├─ README.md # Project overview
+└─ LICENSE # MIT License file
 
-
-configs/ → Configuration files for SW1, SW2, R1.
-
-screenshots/ → Captured outputs from Packet Tracer verification commands.
-
-verification.md → Text outputs of all show commands and ping tests.
 
 ---
 
-### 7. Notes
+## Screenshots
+
+### Ping Verification
+<img src="screenshots/ping pc1 to pc5.png" alt="Ping From PC1 to PC5" width="600"/>
+
+
+<img src="screenshots/ping pc6 to pc3.png" alt="Ping From PC6 to PC3" width="600"/>
+
+### VLAN Configuration
+<img src="screenshots/show-vlan-brief-SW1.png" alt="VLAN Configuration on SW1" width="600"/>
+
+
+<img src="screenshots/show-vlan-brief-SW2.png" alt="VLAN Configuration on SW2" width="600"/>
+
+
+### Interface Trunk Status
+<img src="screenshots/show-interfaces-trunk-SW1.png" alt="Trunk Status on SW1" width="600"/>
+
+
+<img src="screenshots/show-interfaces-trunk-SW2.png" alt="Trunk Status on SW2" width="600"/>
+
 
 ---
 
+## License
 
-This lab demonstrates VLAN creation, trunking, and inter-VLAN routing.
-
-All devices are configured to avoid native VLAN mismatch, unused VLANs, or trunk negotiation issues.
-
-Inter-VLAN connectivity verified; all ping tests successful.
-
----
-
-### 8. License
-
----
 <a href="LICENSE">
   <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="MIT License" />
 </a>
