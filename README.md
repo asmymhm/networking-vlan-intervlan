@@ -1,8 +1,4 @@
-﻿# VLANs + Inter-VLAN routing lab
-
-Hands-on networking projects demonstrating VLAN setup and Inter-VLAN routing.
-
-# Networking VLAN & Inter-VLAN Routing Lab
+﻿# Networking VLAN & Inter-VLAN Routing Lab
 
 ## Week 1 – VLAN & Inter-VLAN Routing
 
@@ -19,21 +15,11 @@ Hands-on networking projects demonstrating VLAN setup and Inter-VLAN routing.
 
 ---
 
-### Lab Objective
-- Configure VLANs on multiple switches.
-- Set up trunk links between switches and router.
-- Configure Router-on-a-Stick for inter-VLAN routing.
-- Verify connectivity between devices in different VLANs.
-- Document all configurations and verification outputs.
+
+### 1. Lab Objective
 
 ---
 
-### Lab Topology
-
-
-
-
-### 1. Lab Objective
 - Configure **VLANs** on multiple switches.
 - Set up **trunk links** between switches and router.
 - Configure **Router-on-a-Stick** for inter-VLAN routing.
@@ -43,6 +29,8 @@ Hands-on networking projects demonstrating VLAN setup and Inter-VLAN routing.
 ---
 
 ### 2. Lab Topology
+
+---
 
 PC1-PC3 --- SW1 ---+--- R1 (G0/0)
 |
@@ -58,6 +46,9 @@ PC4-PC6 --- SW2 ---+
 
 ### 3. IP Addressing Table
 
+---
+
+
 | Device | Interface | IP Address      | Subnet Mask    | Default Gateway |
 |--------|-----------|----------------|----------------|----------------|
 | PC1    | Fa0       | 192.168.10.10  | 255.255.255.0  | 192.168.10.1   |
@@ -72,6 +63,8 @@ PC4-PC6 --- SW2 ---+
 ---
 
 ### 4. Device Configuration Overview
+
+---
 
 **SW1 – Distribution Switch**
 - VLANs 10 & 20 created.
@@ -91,26 +84,31 @@ PC4-PC6 --- SW2 ---+
 
 ### 5. Verification Steps
 
-#### On Switches
+---
+
+On Switches
 
 show vlan brief
 
 show interfaces trunk
 show mac address-table
 
-#### On Router
+On Router
 
 show ip interface brief
 show ip route
 show ip arp
 
-#### On PCs
+On PCs
 
 ping <other VLAN PC IP>
 ping <gateway>
 
+---
 
 ### 6. Folder Structure
+
+---
 
 networking-vlan-intervlan/
 ├─ README.md
@@ -134,11 +132,17 @@ screenshots/ → Captured outputs from Packet Tracer verification commands.
 
 verification.md → Text outputs of all show commands and ping tests.
 
+---
 
 ### 7. Notes
+
+---
+
 
 This lab demonstrates VLAN creation, trunking, and inter-VLAN routing.
 
 All devices are configured to avoid native VLAN mismatch, unused VLANs, or trunk negotiation issues.
 
 Inter-VLAN connectivity verified; all ping tests successful.
+
+---
