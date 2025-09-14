@@ -29,7 +29,7 @@ The goal of this lab is to:
 
 - Configure VLANs on multiple Cisco switches.  
 - Set up trunk links between switches and a router.  
-- Implement inter-VLAN routing to enable communication between different VLANs.  
+- Implement inter-VLAN routing to enable communication between VLAN 10 and VLAN 20.  
 - Verify the configuration through ping tests and interface status checks.  
 
 ---
@@ -45,11 +45,11 @@ The network topology consists of:
 
 **VLAN Assignments:**
 
-| VLAN | PCs         | Gateway        |
-|------|-------------|----------------|
-| 10   | PC1, PC2    | 192.168.10.1   |
-| 20   | PC3, PC4    | 192.168.20.1   |
-| 30   | PC5, PC6    | 192.168.30.1   |
+| VLAN | PCs            | Gateway        |
+|------|----------------|----------------|
+| 10   | PC1, PC2, PC3  | 192.168.10.1   |
+| 20   | PC4, PC5, PC6  | 192.168.20.1   |
+
 
 ---
 
@@ -65,12 +65,12 @@ The network topology consists of:
 ## Device Configuration Overview
 
 ### SW1 (Core Switch)
-- VLANs 10, 20, 30 configured  
+- VLANs 10, 20 configured  
 - Trunk ports on Fa0/23 and Fa0/24  
 - Access ports assigned to respective VLANs  
 
 ### SW2 (Access Switch)
-- VLANs 10, 20, 30 configured  
+- VLANs 10, 20 configured  
 - Access ports assigned to PCs  
 - Trunk port connected to SW1  
 
@@ -78,7 +78,6 @@ The network topology consists of:
 - Subinterfaces configured for each VLAN:
   - Gi0/0.10 → VLAN 10, IP 192.168.10.1  
   - Gi0/0.20 → VLAN 20, IP 192.168.20.1  
-  - Gi0/0.30 → VLAN 30, IP 192.168.30.1  
 - Routing enabled for inter-VLAN communication  
 
 ---
@@ -163,5 +162,6 @@ networking-vlan-intervlan/
 </a>
 
 This project is licensed under the [MIT License](LICENSE).
+
 
 ---
