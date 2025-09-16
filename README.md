@@ -1,7 +1,4 @@
-﻿# Networking VLAN & Inter-VLAN Routing Lab
-
-<img src="screenshots/topology.png" alt="INTER VLAN TOPOLOGY" width="600"/>
-
+﻿# Project A - Networking VLAN & Inter-VLAN Routing Lab
 
 
 
@@ -35,6 +32,9 @@ The goal of this lab is to:
 ---
 
 ## Topology Overview
+
+<img src="screenshots/topology.png" alt="INTER VLAN TOPOLOGY" width="600"/>
+
 
 The network topology consists of:
 
